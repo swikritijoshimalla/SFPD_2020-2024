@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>San Francisco Crime Data Project</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+    header {
+      background-color: #00457c;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    nav {
+      background-color: #023e73;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    nav a {
+      color: white;
+      padding: 1rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      background-color: #005fa3;
+    }
+    .tab-content {
+      display: none;
+      padding: 2rem;
+    }
+    .active {
+      display: block;
+    }
+
+    /* Tableau container */
+    .tableauPlaceholder {
+      width: 100%;
+      height: 700px;
+      margin-top: 1rem;
+    }
+
+    /* Centered larger image */
+    .home-image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 2rem;
+    }
+    .home-image img {
+      width: 80%;
+      max-width: 850px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Models section formatting */
+    .section-subtitle {
+      color: #00457c;
+      margin-top: 1.5rem;
+      font-size: 1.25rem;
+    }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: white;
+      margin-top: 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    .data-table th, .data-table td {
+      padding: 0.75rem 1rem;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    .data-table th {
+      background-color: #f1f4f8;
+      color: #003a66;
+    }
+    ul, ol {
+      margin: 0.5rem 0 0.5rem 1.5rem;
+    }
+    li {
+      margin-bottom: 0.3rem;
+    }
+
+    /* SWOT styles */
+    .swot-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .swot-intro {
+      margin-bottom: 1rem;
+      color: #444;
+    }
+    .swot-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    .swot-table caption {
+      text-align: left;
+      font-weight: bold;
+      padding: 1rem;
+      background: #eef5ff;
+      color: #003a66;
+    }
+    .swot-table th,
+    .swot-table td {
+      vertical-align: top;
+      padding: 1rem 1.25rem;
+      border: 1px solid #e3e6ea;
+    }
+    .swot-table th {
+      background: #f1f4f8;
+      text-align: left;
+      font-size: 1.05rem;
+    }
+    .swot-table ul {
+      margin: 0.25rem 0 0 1.25rem;
+    }
+    .swot-badge {
+      display: inline-block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+      color: #fff;
+    }
+    .badge-strengths { background: #0f8b4c; }
+    .badge-weaknesses { background: #c0392b; }
+    .badge-opportunities { background: #1f6feb; }
+    .badge-threats { background: #8e44ad; }
+
+    @media (max-width: 800px) {
+      .home-image img {
+        width: 95%;
+      }
+      .swot-table thead { display: none; }
+      .swot-table, .swot-table tbody, .swot-table tr, .swot-table td { display: block; width: 100%; }
+      .swot-table tr { border-bottom: 8px solid #f8f9fa; }
+      .swot-table td { border: none; border-top: 1px solid #e3e6ea; }
+      .swot-table td[data-label]::before {
+        content: attr(data-label) " – ";
+        font-weight: bold;
+        color: #555;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>San Francisco Police Department Crime Data (2020–2024)</h1>
+  </header>
+
+  <nav>
+    <a href="#" onclick="openTab('home')">Home</a>
+    <a href="#" onclick="openTab('map')">Map</a>
+    <a href="#" onclick="openTab('dashboards')">Dashboards</a>
+    <a href="#" onclick="openTab('models')">Models</a>
+    <a href="#" onclick="openTab('swot')">SWOT Analysis</a>
+    <a href="#" onclick="openTab('about')">About</a>
+  </nav>
+
+  <main>
+    <section id="home" class="tab-content active">
+      <h2>Welcome to the San Francisco Crime Data Project</h2>
+      <p>
+        This project explores publicly available crime data from the City and County of San Francisco Police Department (SFPD), covering the years 2020 through 2024. The goal is to better understand how crime patterns change over time and across neighborhoods, helping both policymakers and the public make more informed decisions.
+      </p>
+      <p>
+        Using advanced data analytics, machine learning, and geographic information systems (GIS), the project visualizes trends in San Francisco’s urban crime landscape. Visitors can explore interactive maps that display spatial patterns, analytical dashboards that reveal key insights, and predictive models that forecast potential crime hotspots.
+      </p>
+      <p>
+        By combining transparency, data science, and civic engagement, this project demonstrates how open data can be transformed into actionable insights that support public safety, equity, and community awareness.
+      </p>
+      <div class="home-image">
+        <img src="SFPD2.png" alt="San Francisco Police Department Crime Visualization">
+      </div>
+    </section>
+
+    <section id="map" class="tab-content">
+      <h2>Crime Map Visualization</h2>
+      <p>The map below is an interactive GIS visualization embedded from ArcGIS.</p>
+      <iframe src="YOUR_ARCGIS_MAP_EMBED_LINK_HERE"></iframe>
+    </section>
+
+    <section id="dashboards" class="tab-content">
+      <h2>Crime Dashboards</h2>
+      <p>Explore our interactive Tableau dashboard displaying top crime categories across years (2020–2024).</p>
+
+      <!-- Tableau Embed Code -->
+      <div class='tableauPlaceholder' id='viz1762060637650' style='position: relative'>
+        <noscript>
+          <a href='#'>
+            <img alt='Top Crimes by Year' src='https://public.tableau.com/static/images/SF/SFPDTopCrimesbyYear-2020-2024/TopCrimesbyYear/1_rss.png' style='border: none' />
+          </a>
+        </noscript>
+        <object class='tableauViz' style='display:none;'>
+          <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+          <param name='embed_code_version' value='3' />
+          <param name='site_root' value='' />
+          <param name='name' value='SFPDTopCrimesbyYear-2020-2024/TopCrimesbyYear' />
+          <param name='tabs' value='no' />
+          <param name='toolbar' value='yes' />
+          <param name='static_image' value='https://public.tableau.com/static/images/SF/SFPDTopCrimesbyYear-2020-2024/TopCrimesbyYear/1.png' />
+          <param name='animate_transition' value='yes' />
+          <param name='display_static_image' value='yes' />
+          <param name='display_spinner' value='yes' />
+          <param name='display_overlay' value='yes' />
+          <param name='display_count' value='yes' />
+          <param name='language' value='en-US' />
+        </object>
+      </div>
+      <script type='text/javascript'>
+        var divElement = document.getElementById('viz1762060637650');
+        var vizElement = divElement.getElementsByTagName('object')[0];
+        if (divElement.offsetWidth > 800) {
+          vizElement.style.width = '2200px';
+          vizElement.style.height = '727px';
+        } else if (divElement.offsetWidth > 500) {
+          vizElement.style.width = '2200px';
+          vizElement.style.height = '727px';
+        } else {
+          vizElement.style.width = '100%';
+          vizElement.style.height = '1577px';
+        }
+        var scriptElement = document.createElement('script');
+        scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+        vizElement.parentNode.insertBefore(scriptElement, vizElement);
+      </script>
+    </section>
+
+    <section id="models" class="tab-content">
+      <h2>Data Analysis and Predictive Models</h2>
+      <p>This section explains the analytical workflow and modeling techniques used in the BDA600 Capstone project.</p>
+
+      <h3 class="section-subtitle">BDA600 Capstone: San Francisco Police Incident Analysis (2020–2024)</h3>
+      <p>
+        This repository contains the data and analysis for my BDA600 Capstone Project, part of the M.S. in Big Data Analytics program at San Diego State University.
+        The project explores patterns and trends in San Francisco Police Department (SFPD) incident reports from 2020 to 2024, using data analytics and machine learning techniques
+        to identify spatial, temporal, and categorical patterns in crime distribution.
+      </p>
+
+      <h3 class="section-subtitle">Project Objectives</h3>
+      <ul>
+        <li><strong>Analyze temporal trends →</strong> Explore how incidents vary by hour, day, month, and year.</li>
+        <li><strong>Investigate spatial distribution →</strong> Map and cluster crime locations by neighborhood and police district.</li>
+        <li><strong>Categorize incidents →</strong> Identify which incident types and categories are most common.</li>
+        <li><strong>Build predictive insights →</strong> Use machine learning to model or forecast incident patterns.</li>
+      </ul>
+
+      <h3 class="section-subtitle">Dataset Information</h3>
+      <ul>
+        <li><strong>File:</strong> sfpd_2020_2024_clean.parquet</li>
+        <li><strong>Records:</strong> ~611,000 incidents</li>
+        <li><strong>Columns:</strong> 14 fields</li>
+      </ul>
+      <p>
+        <strong>Fields include:</strong> Incident Category, Incident Subcategory, Incident Date, Incident Time, Latitude, Longitude, Police District, Analysis Neighborhood, plus derived time features (hour, dayofweek, month, year).
+      </p>
+      <p><strong>Source:</strong> Public SFPD incident data portal</p>
+      <p><strong>Preprocessing Steps:</strong></p>
+      <ul>
+        <li>Removed duplicates and missing coordinates</li>
+        <li>Converted date/time fields</li>
+        <li>Engineered temporal features</li>
+      </ul>
+
+      <h3 class="section-subtitle">Analytical Workflow</h3>
+      <ul>
+        <li><strong>Data Cleaning & Transformation →</strong> Using pandas and NumPy.</li>
+        <li><strong>Exploratory Data Analysis (EDA) →</strong> Descriptive stats, missing data, temporal and spatial visualizations.</li>
+        <li><strong>Feature Engineering →</strong> Extracted hour, day, month, and year; handled geographic data.</li>
+        <li><strong>Visualization →</strong> Heatmaps, time series plots, and spatial maps (Seaborn, Matplotlib, or Folium).</li>
+        <li><strong>Modeling →</strong> Predictive modeling or clustering of incidents.</li>
+      </ul>
+
+      <h3 class="section-subtitle">Tools & Technologies</h3>
+      <table class="data-table">
+        <tr><th>Category</th><th>Tools</th></tr>
+        <tr><td><strong>Language</strong></td><td>Python 3</td></tr>
+        <tr><td><strong>Libraries</strong></td><td>pandas, numpy, matplotlib, seaborn, geopandas, scikit-learn</td></tr>
+        <tr><td><strong>Visualization</strong></td><td>Folium, Plotly, Tableau, ArcGIS</td></tr>
+        <tr><td><strong>Data Format</strong></td><td>Parquet (efficient storage for large data)</td></tr>
+        <tr><td><strong>Version Control</strong></td><td>Git & GitHub</td></tr>
+      </table>
+    </section>
+
+    <section id="swot" class="tab-content">
+  <div class="swot-wrapper">
+    <h2>SWOT Analysis</h2>
+    <p class="swot-intro">
+      <strong>SWOT Analysis: San Francisco Crime Data Analytics Project</strong>
+    </p>
+
+    <table class="swot-table" role="table">
+      <caption>Project SWOT Overview (Strengths, Weaknesses, Opportunities, Threats)</caption>
+      <thead>
+        <tr>
+          <th scope="col"><span class="swot-badge badge-strengths">Strengths</span></th>
+          <th scope="col"><span class="swot-badge badge-weaknesses">Weaknesses</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="Strengths">
+            <ul>
+              <li><strong>Rich Dataset:</strong> The project utilizes five years of detailed SFPD crime reports (2020–2024), offering a strong foundation for pattern detection and predictive modeling.</li>
+              <li><strong>Robust Workflow:</strong> Integrates Python, ArcGIS, and Tableau to perform end-to-end data processing, visualization, and forecasting with reproducible and transparent methods.</li>
+              <li><strong>Clear Visualizations:</strong> Interactive dashboards and GIS maps make complex data accessible to both technical and non-technical audiences, enhancing interpretation and decision-making.</li>
+            </ul>
+          </td>
+          <td data-label="Weaknesses">
+            <ul>
+              <li><strong>Limited Spatial Granularity:</strong> Some records lack exact coordinates or are aggregated at the district level, which may reduce precision in hotspot analysis.</li>
+              <li><strong>Data Inconsistencies:</strong> Variations in reporting practices or missing values across years can impact trend accuracy and model performance.</li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+
+      <thead>
+        <tr>
+          <th scope="col"><span class="swot-badge badge-opportunities">Opportunities</span></th>
+          <th scope="col"><span class="swot-badge badge-threats">Threats</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="Opportunities">
+            <ul>
+              <li><strong>Policy Integration:</strong> Results can inform citywide safety strategies, resource allocation, and equitable policing initiatives.</li>
+              <li><strong>Real-Time Monitoring:</strong> Building on this framework, future integration with live SFPD data could enable near real-time crime tracking and early warning systems.</li>
+              <li><strong>Community Engagement:</strong> Visualizations and findings can promote transparency, allowing the public to better understand safety trends in their neighborhoods.</li>
+            </ul>
+          </td>
+          <td data-label="Threats">
+            <ul>
+              <li><strong>Ethical Concerns:</strong> Predictive policing models must be applied carefully to avoid reinforcing historical biases or unfair targeting.</li>
+              <li><strong>Data Privacy:</strong> Handling sensitive geospatial and incident-level data requires strong safeguards to protect individual identities.</li>
+              <li><strong>Public Perception:</strong> Misinterpretation of predictive maps or hotspot data may cause concern or distrust if not communicated responsibly.</li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+    <section id="about" class="tab-content">
+      <h2>About the Project</h2>
+      <p>This capstone project analyzes five years of San Francisco Police Department (SFPD) incident reports (2020–2024) to identify, visualize, and forecast crime patterns across city neighborhoods. Although seven years of data were available, the most recent five were selected for relevance and accuracy. The project aims to uncover cyclical trends in crime frequency and location to support data-driven public safety planning and promote informed community decision-making.</p>
+      <p>Using tools such as Python, ArcGIS, Tableau, and statistical modeling, the team examines how factors like time of day, season, and neighborhood characteristics influence crime activity. Predictive modeling techniques—including clustering and regression analysis—are applied to forecast high-risk zones and evaluate how patterns shift over time. Exploratory Data Analysis (EDA) combines visualizations and correlation mapping to highlight relationships between crime types, time, and geography, while ethical frameworks guide the project to ensure fairness, transparency, and accountability in interpreting policing data.</p>
+      <p>The project deliverables include an in-depth research paper, interactive ArcGIS maps, and visual dashboards that make the findings accessible to both technical and public audiences. These tools are designed to encourage dialogue on equity, safety, and the responsible use of data science in urban policy and management.</p>
+      <br>
+      <h2>Project Team</h2>
+      <p>This project was developed by Swikriti Joshi and Eduardo Rosas, graduate students in the Big Data Analytics program at San Diego State University. Their shared goal is to apply data science and visualization techniques to real-world challenges, using open data to promote transparency, ethical analysis, and community engagement.</p>
+    </section>
+  </main>
+
+  <script>
+    function openTab(tabId) {
+      const contents = document.querySelectorAll('.tab-content');
+      contents.forEach(content => content.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+    }
+  </script>
+</body>
+</html>
