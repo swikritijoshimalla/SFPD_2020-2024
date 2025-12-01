@@ -1,5 +1,5 @@
 # SFPD_2020-2024
-San Francisco Police Department (SFPD) incident reports (2020–2024) to identify, visualize, and forecast crime patterns across city neighborhoods.
+San Francisco Police Department (SFPD) incident reports (2020-2024) to identify, visualize, and forecast crime patterns across city neighborhoods.
 
 **About the Project**
 This capstone project analyzes five years of San Francisco Police Department (SFPD) incident reports (2020–2024) to identify, visualize, and forecast crime patterns across city neighborhoods. Although seven years of data were available, the most recent five were selected for relevance and accuracy. The project aims to uncover cyclical trends in crime frequency and location to support data-driven public safety planning and promote informed community decision-making.
