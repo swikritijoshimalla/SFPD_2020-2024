@@ -161,7 +161,7 @@
 </head>
 <body>
   <header>
-    <h1>San Francisco Police Department Crime Data (2020–2024)</h1>
+    <h1>San Francisco Police Department Crime Data (2020-2024)</h1>
   </header>
 
   <nav>
@@ -243,121 +243,362 @@
     </section>
 
     <section id="models" class="tab-content">
-      <h2>Data Analysis and Predictive Models</h2>
-      <p>This section explains the analytical workflow and modeling techniques used in the BDA600 Capstone project.</p>
+  <h2>Data Analysis and Predictive Models</h2>
+  <p>
+    This section describes the analytical workflow, dataset, and predictive modeling techniques used in the
+    BDA600 Capstone project, including time series forecasting models (Prophet and SARIMAX), diagnostic checks,
+    and feature-based classification models.
+  </p>
 
-      <h3 class="section-subtitle">BDA600 Capstone: San Francisco Police Incident Analysis (2020–2024)</h3>
-      <p>
-        This repository contains the data and analysis for my BDA600 Capstone Project, part of the M.S. in Big Data Analytics program at San Diego State University.
-        The project explores patterns and trends in San Francisco Police Department (SFPD) incident reports from 2020 to 2024, using data analytics and machine learning techniques
-        to identify spatial, temporal, and categorical patterns in crime distribution.
+  <h3 class="section-subtitle">BDA600 Capstone: San Francisco Police Incident Analysis (2020–2024)</h3>
+  <p>
+    This project is part of the M.S. in Big Data Analytics program at San Diego State University and focuses on
+    San Francisco Police Department (SFPD) incident reports from 2020 to 2024. The analysis explores spatial,
+    temporal, and categorical patterns in crime distribution and develops forecasting models to anticipate
+    short-term changes in daily incident counts across the city.
+  </p>
+
+  <h3 class="section-subtitle">Project Objectives</h3>
+  <ul>
+    <li><strong>Analyze temporal trends →</strong> Examine how incidents vary by hour, day, month, and year.</li>
+    <li><strong>Investigate spatial distribution →</strong> Map and cluster crime locations by neighborhood and police district.</li>
+    <li><strong>Categorize incidents →</strong> Identify which incident types and categories are most common.</li>
+    <li><strong>Build predictive insights →</strong> Use machine learning and time series models to forecast incident patterns and support planning.</li>
+  </ul>
+
+  <h3 class="section-subtitle">Dataset Information</h3>
+  <ul>
+    <li><strong>File:</strong> sfpd_2020_2024_clean.parquet</li>
+    <li><strong>Records:</strong> ~611,000 incidents</li>
+    <li><strong>Columns:</strong> 14 fields</li>
+  </ul>
+  <p>
+    <strong>Key fields include:</strong> Incident Category, Incident Subcategory, Incident Date, Incident Time,
+    Latitude, Longitude, Police District, Analysis Neighborhood, as well as derived temporal features such as
+    hour, day of week, month, and year.
+  </p>
+  <p><strong>Source:</strong> Public SFPD incident data portal</p>
+
+  <p><strong>Preprocessing Steps:</strong></p>
+  <ul>
+    <li>Removed duplicate records and incidents with missing or invalid coordinates.</li>
+    <li>Standardized and converted date/time fields to a consistent format.</li>
+    <li>Engineered temporal features (hour, day of week, month, year) to support trend and seasonality analysis.</li>
+  </ul>
+
+  <h3 class="section-subtitle">Analytical Workflow</h3>
+  <ul>
+    <li><strong>Data Cleaning &amp; Transformation →</strong> Using pandas and NumPy to handle missing values, filter records, and create derived features.</li>
+    <li><strong>Exploratory Data Analysis (EDA) →</strong> Descriptive statistics, distributions, missing-data checks, and temporal/spatial visualizations.</li>
+    <li><strong>Feature Engineering →</strong> Extraction of calendar-based features and preparation of daily aggregated series for forecasting.</li>
+    <li><strong>Visualization →</strong> Time series plots, heatmaps, and spatial maps built with Matplotlib, Seaborn, Folium, Tableau, and ArcGIS.</li>
+    <li><strong>Modeling →</strong> Development of time series forecasting models and classification models to support operational insights.</li>
+  </ul>
+
+  <!-- =========================
+       FORECASTING SECTION
+       ========================= -->
+
+  <h3 class="section-subtitle">Forecasting Daily Crime Counts</h3>
+  <p>
+    To forecast short-term citywide crime levels, daily incident counts from 2020–2024 were aggregated into a
+    univariate time series and split into a training set and a 60-day holdout period. Two complementary
+    forecasting approaches were evaluated:
+    <strong>Facebook Prophet</strong>, a decomposable time series model with built-in support for trend and multiple
+    seasonalities, and a <strong>seasonal ARIMA with exogenous regressors (SARIMAX)</strong> model configured to
+    capture weekly patterns. Both models aim to reproduce the strong weekly cycle observed in the data and to
+    provide practical forecasts for short-term planning.
+  </p>
+
+  <!-- SARIMAX Forecast Figure -->
+  <div class="model-figure">
+    <img src="SarimaxFig1.png" alt="SARIMAX Forecast vs Actual Daily Crime Counts" style="width:100%; max-width:1100px; display:block; margin:0 auto;">
+    <p class="caption">
+      Figure 1. SARIMAX forecast vs. actual daily incident counts over the 60-day holdout period, with 95% confidence intervals.
+    </p>
+  </div>
+
+  <h3 class="section-subtitle">SARIMAX Forecast &amp; Residual Diagnostics</h3>
+  <p>
+    The SARIMAX model was fit using a (1,1,1)(1,1,1,7) specification to explicitly capture weekly seasonality
+    (period 7). Over the 60-day holdout window, the model generally tracked the weekly cycle, but exhibited
+    wider uncertainty bands and higher forecast error compared with Prophet. Residual diagnostics were used to
+    evaluate model adequacy and ensure that most temporal structure was captured by the model.
+  </p>
+
+  <!-- SARIMAX Residuals Figures -->
+  <div class="model-figure-grid" style="display:grid; gap:20px; margin-bottom:24px;">
+    <div class="model-figure">
+      <img src="SarimaxResidualsHistogramFig2.png" alt="SARIMAX Residuals Histogram" style="width:100%; max-width:600px; display:block; margin:0 auto;">
+      <p class="caption">
+        Figure 2. Histogram of SARIMAX residuals, centered around zero with moderate tails, indicating no major systematic bias.
       </p>
+    </div>
 
-      <h3 class="section-subtitle">Project Objectives</h3>
-      <ul>
-        <li><strong>Analyze temporal trends →</strong> Explore how incidents vary by hour, day, month, and year.</li>
-        <li><strong>Investigate spatial distribution →</strong> Map and cluster crime locations by neighborhood and police district.</li>
-        <li><strong>Categorize incidents →</strong> Identify which incident types and categories are most common.</li>
-        <li><strong>Build predictive insights →</strong> Use machine learning to model or forecast incident patterns.</li>
-      </ul>
-
-      <h3 class="section-subtitle">Dataset Information</h3>
-      <ul>
-        <li><strong>File:</strong> sfpd_2020_2024_clean.parquet</li>
-        <li><strong>Records:</strong> ~611,000 incidents</li>
-        <li><strong>Columns:</strong> 14 fields</li>
-      </ul>
-      <p>
-        <strong>Fields include:</strong> Incident Category, Incident Subcategory, Incident Date, Incident Time, Latitude, Longitude, Police District, Analysis Neighborhood, plus derived time features (hour, dayofweek, month, year).
+    <div class="model-figure">
+      <img src="SarimaxAutocorrelationFig3.png" alt="SARIMAX Residuals Autocorrelation Function" style="width:100%; max-width:600px; display:block; margin:0 auto;">
+      <p class="caption">
+        Figure 3. Autocorrelation function (ACF) of SARIMAX residuals, with most lags within the confidence bounds, suggesting limited remaining serial correlation.
       </p>
-      <p><strong>Source:</strong> Public SFPD incident data portal</p>
-      <p><strong>Preprocessing Steps:</strong></p>
-      <ul>
-        <li>Removed duplicates and missing coordinates</li>
-        <li>Converted date/time fields</li>
-        <li>Engineered temporal features</li>
-      </ul>
+    </div>
 
-      <h3 class="section-subtitle">Analytical Workflow</h3>
-      <ul>
-        <li><strong>Data Cleaning & Transformation →</strong> Using pandas and NumPy.</li>
-        <li><strong>Exploratory Data Analysis (EDA) →</strong> Descriptive stats, missing data, temporal and spatial visualizations.</li>
-        <li><strong>Feature Engineering →</strong> Extracted hour, day, month, and year; handled geographic data.</li>
-        <li><strong>Visualization →</strong> Heatmaps, time series plots, and spatial maps (Seaborn, Matplotlib, or Folium).</li>
-        <li><strong>Modeling →</strong> Predictive modeling or clustering of incidents.</li>
-      </ul>
+    <div class="model-figure">
+      <img src="SarimaxPartialAutocorrelationFig4.png" alt="SARIMAX Residuals Partial Autocorrelation Function" style="width:100%; max-width:600px; display:block; margin:0 auto;">
+      <p class="caption">
+        Figure 4. Partial autocorrelation function (PACF) of SARIMAX residuals, indicating that key seasonal structure has been largely captured by the model.
+      </p>
+    </div>
+  </div>
 
-      <h3 class="section-subtitle">Tools & Technologies</h3>
-      <table class="data-table">
-        <tr><th>Category</th><th>Tools</th></tr>
-        <tr><td><strong>Language</strong></td><td>Python 3</td></tr>
-        <tr><td><strong>Libraries</strong></td><td>pandas, numpy, matplotlib, seaborn, geopandas, scikit-learn</td></tr>
-        <tr><td><strong>Visualization</strong></td><td>Folium, Plotly, Tableau, ArcGIS</td></tr>
-        <tr><td><strong>Data Format</strong></td><td>Parquet (efficient storage for large data)</td></tr>
-        <tr><td><strong>Version Control</strong></td><td>Git & GitHub</td></tr>
-      </table>
-    </section>
+  <p>
+    Overall, the SARIMAX residual diagnostics support a reasonable model fit; however, forecasts were more
+    volatile and tended to lag local peaks in the crime series. Prediction intervals were also comparatively
+    wider, reflecting greater uncertainty about future crime levels.
+  </p>
+
+  <!-- PROPHET SECTION -->
+
+  <h3 class="section-subtitle">Prophet Forecast &amp; Components</h3>
+  <p>
+    The Prophet model was trained on citywide daily incident counts from 2020–2024 and used to generate a
+    30-day forecast, as well as evaluations over the same 60-day holdout period. Prophet produced a smooth
+    forecast curve dominated by weekly seasonality and a mild long-term downward trend. The uncertainty
+    intervals widened gradually with the forecast horizon, consistent with expected behavior in time series
+    forecasting.
+  </p>
+
+  <!-- Prophet Forecast Figure -->
+  <div class="model-figure">
+    <img src="ProphetForecastFig5.png" alt="Prophet Forecast of Daily Crime Counts for the Next 30 Days" style="width:100%; max-width:1100px; display:block; margin:0 auto;">
+    <p class="caption">
+      Figure 5. Prophet forecast of daily crime counts, showing historic observations, forecasted values, and 95% uncertainty intervals.
+    </p>
+  </div>
+
+  <p>
+    A component decomposition of the Prophet model highlights three key elements: a long-term trend, weekly
+    seasonality, and yearly seasonality. These components mirror patterns discovered during exploratory
+    analysis and help explain how crime varies over different time scales.
+  </p>
+
+  <!-- Prophet Components: Trend, Weekly, Yearly -->
+  <div class="model-figure-grid" style="display:grid; gap:20px; margin-bottom:24px;">
+    <div class="model-figure">
+      <img src="ProphetComponentsTrendFig6.png" alt="Prophet Trend Component" style="width:100%; max-width:800px; display:block; margin:0 auto;">
+      <p class="caption">
+        Figure 6. Prophet trend component showing a gradual rise in incident volume through 2022–2023 followed by a decline into 2024–2025.
+      </p>
+    </div>
+
+    <div class="model-figure">
+      <img src="ProphetComponentsWeeklyFig7.png" alt="Prophet Weekly Seasonality Component" style="width:100%; max-width:800px; display:block; margin:0 auto;">
+      <p class="caption">
+        Figure 7. Weekly seasonality component: higher crime levels on Fridays and Saturdays, with lower levels midweek.
+      </p>
+    </div>
+
+    <div class="model-figure">
+      <img src="ProphetComponentsYearlyFig8.png" alt="Prophet Yearly Seasonality Component" style="width:100%; max-width:800px; display:block; margin:0 auto;">
+      <p class="caption">
+        Figure 8. Yearly seasonality component, showing elevated crime during summer and early fall and lower activity in winter months.
+      </p>
+    </div>
+  </div>
+
+  <h3 class="section-subtitle">Forecast Accuracy: Prophet vs. SARIMAX</h3>
+  <p>
+    Model performance was compared over the same 60-day holdout period using standard error metrics:
+    Mean Absolute Error (MAE), Root Mean Squared Error (RMSE), and Mean Absolute Percentage Error (MAPE).
+  </p>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Model</th>
+        <th>MAE</th>
+        <th>RMSE</th>
+        <th>MAPE</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Prophet</strong></td>
+        <td>21.56</td>
+        <td>27.83</td>
+        <td>8.58%</td>
+      </tr>
+      <tr>
+        <td><strong>SARIMAX</strong></td>
+        <td>30.19</td>
+        <td>37.09</td>
+        <td>12.58%</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    Prophet achieved lower error across all three metrics, indicating that it better captured the weekly and
+    yearly periodicities present in San Francisco crime data. SARIMAX produced reasonable forecasts but with
+    higher error and wider uncertainty bands. These quantitative results support selecting Prophet as the
+    primary model for citywide daily crime forecasting in the final dashboard.
+  </p>
+
+  <h3 class="section-subtitle">Classification Models &amp; Feature Importance</h3>
+  <p>
+    In addition to time series forecasting, classification models were used to analyze incident patterns and to
+    better understand which features most strongly influence predicted crime levels. A tuned Decision Tree
+    classifier was trained using engineered temporal, categorical, and socio-economic features, and its feature
+    importance ranking was examined to interpret the model’s behavior.
+  </p>
+
+  <!-- Decision Tree Feature Importance Plot -->
+  <div class="model-figure">
+    <img src="Top20FeatureImportance&ErrorAnalysisFig9.png" alt="Decision Tree Top 20 Feature Importances" style="width:100%; max-width:900px; display:block; margin:0 auto;">
+    <p class="caption">
+      Figure 9. Decision Tree (best grid) – Top 20 features, highlighting the importance of lagged incident counts, month,
+      and key incident categories.
+    </p>
+  </div>
+
+  <!-- Detailed Feature Importance Table / Output -->
+  <div class="model-figure">
+    <img src="FeatureImportance&ErrorAnalysisFig10.png" alt="Detailed Feature Importance Table" style="width:100%; max-width:700px; display:block; margin:0 auto;">
+    <p class="caption">
+      Figure 10. Tabular view of feature importances, providing a detailed ranking of temporal, categorical, and
+      socio-economic predictors used in the classification model.
+    </p>
+  </div>
+
+  <p>
+    The feature importance analysis confirms that short-term temporal dynamics (lagged counts, month, day of week)
+    and certain incident categories play a major role in predicting crime levels. This complements the forecasting
+    models by offering an interpretable view of which drivers most influence crime fluctuations.
+  </p>
+
+  <h3 class="section-subtitle">Tools &amp; Technologies</h3>
+  <table class="data-table">
+    <tr><th>Category</th><th>Tools</th></tr>
+    <tr><td><strong>Language</strong></td><td>Python 3</td></tr>
+    <tr><td><strong>Libraries</strong></td><td>pandas, NumPy, Matplotlib, Seaborn, GeoPandas, scikit-learn, statsmodels, Prophet</td></tr>
+    <tr><td><strong>Visualization</strong></td><td>Folium, Plotly, Tableau, ArcGIS</td></tr>
+    <tr><td><strong>Data Format</strong></td><td>Parquet (efficient storage for large data)</td></tr>
+    <tr><td><strong>Version Control</strong></td><td>Git &amp; GitHub</td></tr>
+  </table>
+</section>
+
 
     <section id="swot" class="tab-content">
   <div class="swot-wrapper">
     <h2>SWOT Analysis</h2>
-    <p class="swot-intro">
-      <strong>SWOT Analysis: San Francisco Crime Data Analytics Project</strong>
-    </p>
+
+    <!-- Intro card -->
+    <div class="card" style="margin-bottom:20px; padding:16px 20px; border-radius:12px; background:#0e1823; border:1px solid #1b2a3a; box-shadow:inset 0 0 0 1px #16202f;">
+      <p style="margin:0 0 8px; color:#ffffff; font-weight:600;">
+        SWOT Analysis: San Francisco Crime Data Analytics Project
+      </p>
+      <p style="margin:0; color:#b9c8d8; line-height:1.6;">
+        A SWOT analysis is a structured way to evaluate this Big Data project by examining its 
+        <strong>Strengths</strong>, <strong>Weaknesses</strong>, <strong>Opportunities</strong>, and <strong>Threats</strong>. 
+        This perspective highlights what the project does well, where limitations exist, what future benefits it can deliver, 
+        and what risks must be managed. Looking at all four areas provides a complete view of how effective, scalable, and 
+        impactful this crime analytics work can be for the City and County of San Francisco.
+      </p>
+    </div>
 
     <table class="swot-table" role="table">
       <caption>Project SWOT Overview (Strengths, Weaknesses, Opportunities, Threats)</caption>
+
+      <!-- Strengths & Weaknesses -->
       <thead>
         <tr>
-          <th scope="col"><span class="swot-badge badge-strengths">Strengths</span></th>
-          <th scope="col"><span class="swot-badge badge-weaknesses">Weaknesses</span></th>
+          <th scope="col">
+            <span class="swot-badge badge-strengths">✅ Strengths</span>
+          </th>
+          <th scope="col">
+            <span class="swot-badge badge-weaknesses">⚠️ Weaknesses</span>
+          </th>
         </tr>
       </thead>
+
       <tbody>
         <tr>
           <td data-label="Strengths">
-            <ul>
-              <li><strong>Rich Dataset:</strong> The project utilizes five years of detailed SFPD crime reports (2020–2024), offering a strong foundation for pattern detection and predictive modeling.</li>
-              <li><strong>Robust Workflow:</strong> Integrates Python, ArcGIS, and Tableau to perform end-to-end data processing, visualization, and forecasting with reproducible and transparent methods.</li>
-              <li><strong>Clear Visualizations:</strong> Interactive dashboards and GIS maps make complex data accessible to both technical and non-technical audiences, enhancing interpretation and decision-making.</li>
-            </ul>
+            <details open>
+              <summary style="cursor:pointer; font-weight:600; color:#ffffff; margin-bottom:8px;">
+                View strengths of the crime analytics project
+              </summary>
+              <ul style="margin-top:8px;">
+                <li><strong>Extensive Historical Dataset:</strong> Uses five years of SFPD crime data (2020–2024), enabling identification of long-term trends, seasonal patterns, and neighborhood-level shifts.</li>
+                <li><strong>Comprehensive Workflow:</strong> Combines Python for data cleaning and analysis, ArcGIS for mapping crime locations, and Tableau for interactive dashboards, creating a full end-to-end analytics pipeline.</li>
+                <li><strong>Actionable Visual Insights:</strong> Dashboards highlight crime patterns by day of week and time of day, helping police plan patrols more effectively and allowing the public to stay aware of higher-risk times and locations.</li>
+                <li><strong>Accessible, User-Friendly Outputs:</strong> Visual tools make complex analytical results understandable for both technical stakeholders and community members, improving transparency and engagement.</li>
+              </ul>
+            </details>
           </td>
+
           <td data-label="Weaknesses">
-            <ul>
-              <li><strong>Limited Spatial Granularity:</strong> Some records lack exact coordinates or are aggregated at the district level, which may reduce precision in hotspot analysis.</li>
-              <li><strong>Data Inconsistencies:</strong> Variations in reporting practices or missing values across years can impact trend accuracy and model performance.</li>
-            </ul>
+            <details open>
+              <summary style="cursor:pointer; font-weight:600; color:#ffffff; margin-bottom:8px;">
+                View current limitations and weaknesses
+              </summary>
+              <ul style="margin-top:8px;">
+                <li><strong>Limited Spatial Precision:</strong> Many crime reports lack exact coordinates or only list nearby intersections or general areas, reducing hotspot mapping accuracy.</li>
+                <li><strong>Data Gaps & Inconsistencies:</strong> Missing values and changes in reporting practices over time can affect the reliability of trend analysis and model performance.</li>
+                <li><strong>Time Recording Issues:</strong> Numerous incidents are recorded at default times (e.g., 12:00 AM or 12:00 PM) when the exact time is unknown, which reduces the accuracy of time-of-day analysis for certain offenses.</li>
+              </ul>
+            </details>
           </td>
         </tr>
       </tbody>
 
+      <!-- Opportunities & Threats -->
       <thead>
         <tr>
-          <th scope="col"><span class="swot-badge badge-opportunities">Opportunities</span></th>
-          <th scope="col"><span class="swot-badge badge-threats">Threats</span></th>
+          <th scope="col">
+            <span class="swot-badge badge-opportunities">📈 Opportunities</span>
+          </th>
+          <th scope="col">
+            <span class="swot-badge badge-threats">⚠️ Threats</span>
+          </th>
         </tr>
       </thead>
+
       <tbody>
         <tr>
           <td data-label="Opportunities">
-            <ul>
-              <li><strong>Policy Integration:</strong> Results can inform citywide safety strategies, resource allocation, and equitable policing initiatives.</li>
-              <li><strong>Real-Time Monitoring:</strong> Building on this framework, future integration with live SFPD data could enable near real-time crime tracking and early warning systems.</li>
-              <li><strong>Community Engagement:</strong> Visualizations and findings can promote transparency, allowing the public to better understand safety trends in their neighborhoods.</li>
-            </ul>
+            <details open>
+              <summary style="cursor:pointer; font-weight:600; color:#ffffff; margin-bottom:8px;">
+                View opportunities for growth and impact
+              </summary>
+              <ul style="margin-top:8px;">
+                <li><strong>Policy & Strategy Integration:</strong> Insights can guide staffing, patrol planning, and targeted prevention programs, supporting more efficient and equitable public safety strategies.</li>
+                <li><strong>Real-Time Expansion:</strong> Connecting the framework to live SFPD feeds could enable near real-time crime tracking, alert systems, and faster response to emerging patterns.</li>
+                <li><strong>Community Awareness & Engagement:</strong> Transparent dashboards and maps can help residents better understand safety trends in their neighborhoods and strengthen trust with local agencies.</li>
+                <li><strong>Advanced Predictive Modeling:</strong> With improved data quality, the project could evolve into forecasting tools that anticipate high-risk times and locations for proactive intervention.</li>
+              </ul>
+            </details>
           </td>
+
           <td data-label="Threats">
-            <ul>
-              <li><strong>Ethical Concerns:</strong> Predictive policing models must be applied carefully to avoid reinforcing historical biases or unfair targeting.</li>
-              <li><strong>Data Privacy:</strong> Handling sensitive geospatial and incident-level data requires strong safeguards to protect individual identities.</li>
-              <li><strong>Public Perception:</strong> Misinterpretation of predictive maps or hotspot data may cause concern or distrust if not communicated responsibly.</li>
-            </ul>
+            <details open>
+              <summary style="cursor:pointer; font-weight:600; color:#ffffff; margin-bottom:8px;">
+                View key risks and threats
+              </summary>
+              <ul style="margin-top:8px;">
+                <li><strong>Ethical Risks in Predictive Policing:</strong> If not carefully governed, predictive tools can unintentionally reinforce historical biases and disproportionately impact certain communities.</li>
+                <li><strong>Privacy & Data Security:</strong> Sensitive geospatial and incident-level data must be protected with strong safeguards to prevent misuse and protect individual identities.</li>
+                <li><strong>Public Misinterpretation:</strong> Hotspot maps and predictions may cause confusion or concern if limitations are not clearly communicated and contextualized.</li>
+                <li><strong>Dependence on Imperfect Data:</strong> Incomplete or inconsistent data can lead to misleading insights unless these limitations are clearly acknowledged in all interpretations and recommendations.</li>
+              </ul>
+            </details>
           </td>
         </tr>
       </tbody>
+
     </table>
   </div>
 </section>
+
 
     <section id="about" class="tab-content">
       <h2>About the Project</h2>
