@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>San Francisco Crime Data Project</title>
+  <title>Spatial-Temporal Crime Prediction and Socioeconomic Modeling in San Francisco (2020-2024)</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -39,6 +39,21 @@
     .active {
       display: block;
     }
+    /* FULL PAGE MAP VIEW */
+.map-fullscreen-container {
+  width: 100%;
+  height: calc(100vh - 120px);  /* Full viewport height minus nav/header */
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 0;  /* Remove rounding for edge-to-edge look */
+}
+
+.map-fullscreen-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
 
     /* Tableau container */
     .tableauPlaceholder {
@@ -161,14 +176,14 @@
 </head>
 <body>
   <header>
-    <h1>San Francisco Police Department Crime Data (2020-2024)</h1>
+    <h1>Spatial-Temporal Crime Prediction and Socioeconomic Modeling in San Francisco (2020-2024)</h1>
   </header>
 
   <nav>
     <a href="#" onclick="openTab('home')">Home</a>
     <a href="#" onclick="openTab('map')">Map</a>
-    <a href="#" onclick="openTab('dashboards')">Dashboards</a>
-    <a href="#" onclick="openTab('models')">Models</a>
+    <a href="#" onclick="openTab('dashboards')">Dashboard</a>
+    <a href="#" onclick="openTab('models')">Machine Learning Models</a>
     <a href="#" onclick="openTab('swot')">SWOT Analysis</a>
     <a href="#" onclick="openTab('about')">About</a>
   </nav>
@@ -190,11 +205,17 @@
       </div>
     </section>
 
-    <section id="map" class="tab-content">
-      <h2>Crime Map Visualization</h2>
-      <p>The map below is an interactive GIS visualization embedded from ArcGIS.</p>
-      <iframe src="YOUR_ARCGIS_MAP_EMBED_LINK_HERE"></iframe>
-    </section>
+    <section id="map" class="tab-content" style="padding:0; margin:0;">
+  <div class="map-fullscreen-container">
+    <iframe 
+      src="https://sdsugeo.maps.arcgis.com/apps/dashboards/b6dc707afc634a50a7cb9dea0932015e"
+      title="SF Crime Map"
+      allowfullscreen
+    ></iframe>
+
+  </div>
+</section>
+
 
     <section id="dashboards" class="tab-content">
       <h2>Crime Dashboards</h2>
@@ -601,13 +622,11 @@
 
 
     <section id="about" class="tab-content">
-      <h2>About the Project</h2>
-      <p>This capstone project analyzes five years of San Francisco Police Department (SFPD) incident reports (2020–2024) to identify, visualize, and forecast crime patterns across city neighborhoods. Although seven years of data were available, the most recent five were selected for relevance and accuracy. The project aims to uncover cyclical trends in crime frequency and location to support data-driven public safety planning and promote informed community decision-making.</p>
-      <p>Using tools such as Python, ArcGIS, Tableau, and statistical modeling, the team examines how factors like time of day, season, and neighborhood characteristics influence crime activity. Predictive modeling techniques—including clustering and regression analysis—are applied to forecast high-risk zones and evaluate how patterns shift over time. Exploratory Data Analysis (EDA) combines visualizations and correlation mapping to highlight relationships between crime types, time, and geography, while ethical frameworks guide the project to ensure fairness, transparency, and accountability in interpreting policing data.</p>
-      <p>The project deliverables include an in-depth research paper, interactive ArcGIS maps, and visual dashboards that make the findings accessible to both technical and public audiences. These tools are designed to encourage dialogue on equity, safety, and the responsible use of data science in urban policy and management.</p>
-      <br>
-      <h2>Project Team</h2>
-      <p>This project was developed by Swikriti Joshi and Eduardo Rosas, graduate students in the Big Data Analytics program at San Diego State University. Their shared goal is to apply data science and visualization techniques to real-world challenges, using open data to promote transparency, ethical analysis, and community engagement.</p>
+      <h1>About the Project</h1>
+      <p>This capstone project analyzes five years of San Francisco Police Department (SFPD) crime reports from 2020-2024 to study, visualize, and forecast crime patterns across the city. While seven years of data were available, the most recent five years were chosen to ensure the results are accurate and relevant. The main goal of the project is to understand how crime changes by time of day, season, neighborhood, and category so that public safety decisions can be more data-driven and communities can better understand when and where crime is most likely to occur.</p>
+      <p>The project uses Python for data cleaning and analysis, ArcGIS for creating interactive crime maps, and Tableau for building dashboards that show patterns clearly. Predictive modeling methods, such as clustering and regression, are used to forecast high-risk areas and show how crime trends shift over time. Exploratory Data Analysis (EDA) and visualizations help highlight the relationships between crime types, time patterns, and geographic locations. Ethical guidelines are followed carefully to make sure the findings are fair, transparent, and responsibly interpreted.</p>
+      <p>This project was created by Swikriti Joshi and Eduardo Rosas, graduate students in the Big Data Analytics program at San Diego State University. Their shared mission is to use data science, mapping, and visualization to address real public safety challenges while promoting open data, ethical analysis, and stronger community engagement. Together, they produced a full research report, interactive ArcGIS maps, and easy-to-understand dashboards designed for both technical users and the general public. The goal is to support meaningful conversations about equity, safety, and the responsible use of Big Data in city planning and policy development.</p>
+     
     </section>
   </main>
 
