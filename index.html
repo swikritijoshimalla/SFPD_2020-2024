@@ -70,8 +70,8 @@
       margin-top: 2rem;
     }
     .home-image img {
-      width: 80%;
-      max-width: 850px;
+      width: 100%;
+      max-width: 1200px;
       height: auto;
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -201,7 +201,7 @@
         By combining transparency, data science, and civic engagement, this project demonstrates how open data can be transformed into actionable insights that support public safety, equity, and community awareness.
       </p>
       <div class="home-image">
-        <img src="SFPD2.png" alt="San Francisco Police Department Crime Visualization">
+        <img src="SF2.png" alt="San Francisco Police Department Crime Visualization">
       </div>
     </section>
 
@@ -513,7 +513,7 @@
     <h2>SWOT Analysis</h2>
 
     <!-- Intro card -->
-    <div class="card" style="margin-bottom:20px; padding:16px 20px; border-radius:12px; background:#0e1823; border:1px solid #1b2a3a; box-shadow:inset 0 0 0 1px #16202f;">
+    <div class="card" style="margin-bottom:20px; padding:16px 20px; border-radius:12px; background:#1a5696; border:1px solid #1b2a3a; box-shadow:inset 0 0 0 1px #16202f;">
       <p style="margin:0 0 8px; color:#ffffff; font-weight:600;">
         SWOT Analysis: San Francisco Crime Data Analytics Project
       </p>
@@ -622,12 +622,57 @@
 
 
     <section id="about" class="tab-content">
-      <h1>About the Project</h1>
-      <p>This capstone project analyzes five years of San Francisco Police Department (SFPD) crime reports from 2020-2024 to study, visualize, and forecast crime patterns across the city. While seven years of data were available, the most recent five years were chosen to ensure the results are accurate and relevant. The main goal of the project is to understand how crime changes by time of day, season, neighborhood, and category so that public safety decisions can be more data-driven and communities can better understand when and where crime is most likely to occur.</p>
-      <p>The project uses Python for data cleaning and analysis, ArcGIS for creating interactive crime maps, and Tableau for building dashboards that show patterns clearly. Predictive modeling methods, such as clustering and regression, are used to forecast high-risk areas and show how crime trends shift over time. Exploratory Data Analysis (EDA) and visualizations help highlight the relationships between crime types, time patterns, and geographic locations. Ethical guidelines are followed carefully to make sure the findings are fair, transparent, and responsibly interpreted.</p>
-      <p>This project was created by Swikriti Joshi and Eduardo Rosas, graduate students in the Big Data Analytics program at San Diego State University. Their shared mission is to use data science, mapping, and visualization to address real public safety challenges while promoting open data, ethical analysis, and stronger community engagement. Together, they produced a full research report, interactive ArcGIS maps, and easy-to-understand dashboards designed for both technical users and the general public. The goal is to support meaningful conversations about equity, safety, and the responsible use of Big Data in city planning and policy development.</p>
-     
-    </section>
+  <h1>About the Project</h1>
+
+  <div class="card">
+    <h2>Spatial-Temporal Crime Prediction and Socioeconomic Modeling in San Francisco (2020-2024)</h2>
+    <p class="note">
+      <strong>Team:</strong> SF Terabytes - Eddie Rosas &amp; Swikriti Joshi<br>
+      <strong>Affiliation:</strong> San Diego State University, Big Data Analytics (BDA 600 Capstone Seminar)<br>
+      <strong>Instructors:</strong> Dr. Gabriela Fernandez &amp; Dr. Ming-Hsiang Tsou<br>
+      <strong>Project Website:</strong>
+      <a href="https://swikritijoshimalla.github.io/SFPD_2020-2024/" target="_blank" rel="noopener">
+        SFPD 2020–2024 Crime Project
+      </a><br>
+      <strong>Contact:</strong>
+      <a href="mailto:erosas9172@sdsu.edu">erosas9172@sdsu.edu</a> (Eddie) &middot;
+      <a href="mailto:sjoshi2639@sdsu.edu">sjoshi2639@sdsu.edu</a> (Swikriti)
+      
+    </p>
+
+    <p>
+      This capstone project investigates how crime patterns evolve across San Francisco by integrating five years of
+      incident-level data (2020-2024) with machine learning, time-series forecasting, and geospatial modeling. The goal
+      is to understand when and where crime risk increases, and how temporal cycles, district-level
+      patterns, and routine-activity trends can support fair, data-informed public safety planning.
+    </p>
+
+    <p>
+      The analysis combines Python-based machine learning (Decision Trees, SARIMAX, Prophet), ArcGIS spatial processing,
+      and dashboard visualization. Daily crime counts were used to train a Decision Tree classifier that predicts
+      high-incident days, achieving a Macro-F1 score of approximately 0.61 and ROC-AUC ≈
+      0.65. For short-term forecasting, citywide daily totals were modeled using
+      Prophet and SARIMAX, with Prophet obtaining a MAPE of 8.6% and
+      producing stable 30-day forecasts capturing strong weekly and yearly seasonal cycles.
+    </p>
+
+    <p>
+      Spatially, incidents were aggregated at the police district level and joined to official district
+      boundaries, enabling district-level comparisons and hotspot identification. These spatial and temporal outputs were
+      integrated into an ArcGIS Dashboard that visualizes district-level risk, historical patterns, and forecast
+      summaries in an interactive and accessible format intended for both public users and decision-makers.
+    </p>
+
+    <p>
+      Throughout the project, we emphasized transparency, interpretability, and ethical considerations. While predictive
+      models can support public safety efforts, they also present risks related to bias, data quality, and public
+      perception. Our framework highlights responsible use: predictions are designed to inform community-focused
+      planning, not punitive enforcement. Together, the classification model, forecasting pipeline, and spatial dashboard
+      create a unified, reproducible system for understanding crime dynamics in San Francisco.
+    </p>
+  </div>
+</section>
+
   </main>
 
   <script>
