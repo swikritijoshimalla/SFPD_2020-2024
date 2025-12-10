@@ -182,7 +182,7 @@
 
   <nav>
     <a href="#" onclick="openTab('home')">Home</a>
-    <a href="#" onclick="openTab('map')">Map</a>
+    <a href="#" onclick="openTab('dashboard')">Dashboard</a>
     <a href="#" onclick="openTab('models')">Machine Learning Models</a>
     <a href="#" onclick="openTab('swot')">SWOT Analysis</a>
     <a href="#" onclick="openTab('about')">About</a>
@@ -205,7 +205,7 @@
       </div>
     </section>
 
-    <section id="map" class="tab-content" style="padding:0; margin:0;">
+    <section id="dashboard" class="tab-content" style="padding:0; margin:0;">
   <div class="map-fullscreen-container">
     <iframe 
       src="https://sdsugeo.maps.arcgis.com/apps/dashboards/b6dc707afc634a50a7cb9dea0932015e"
@@ -224,7 +224,7 @@
     and feature-based classification models.
   </p>
 
-  <h3 class="section-subtitle">BDA600 Capstone: San Francisco Police Incident Analysis (2020–2024)</h3>
+  <h3 class="section-subtitle">BDA600 Capstone: San Francisco Police Incident Analysis (2020-2024)</h3>
   <p>
     This project is part of the M.S. in Big Data Analytics program at San Diego State University and focuses on
     San Francisco Police Department (SFPD) incident reports from 2020 to 2024. The analysis explores spatial,
@@ -243,7 +243,7 @@
   <h3 class="section-subtitle">Dataset Information</h3>
   <ul>
     <li><strong>File:</strong> sfpd_2020_2024_clean.parquet</li>
-    <li><strong>Records:</strong> ~611,000 incidents</li>
+    <li><strong>Records:</strong> 611,000 incidents</li>
     <li><strong>Columns:</strong> 14 fields</li>
   </ul>
   <p>
@@ -251,7 +251,7 @@
     Latitude, Longitude, Police District, Analysis Neighborhood, as well as derived temporal features such as
     hour, day of week, month, and year.
   </p>
-  <p><strong>Source:</strong> Public SFPD incident data portal</p>
+  <p><strong>Source:</strong> https://data.sfgov.org/Public-Safety/Map-of-Police-Department-Incident-Reports-2018-to-/jq29-s5wp </p>
 
   <p><strong>Preprocessing Steps:</strong></p>
   <ul>
@@ -265,7 +265,7 @@
     <li><strong>Data Cleaning &amp; Transformation →</strong> Using pandas and NumPy to handle missing values, filter records, and create derived features.</li>
     <li><strong>Exploratory Data Analysis (EDA) →</strong> Descriptive statistics, distributions, missing-data checks, and temporal/spatial visualizations.</li>
     <li><strong>Feature Engineering →</strong> Extraction of calendar-based features and preparation of daily aggregated series for forecasting.</li>
-    <li><strong>Visualization →</strong> Time series plots, heatmaps, and spatial maps built with Matplotlib, Seaborn, Folium, Tableau, and ArcGIS.</li>
+    <li><strong>Visualization →</strong> Time series plots, heatmaps, and spatial maps built with Matplotlib, Seaborn, Folium, and ArcGIS.</li>
     <li><strong>Modeling →</strong> Development of time series forecasting models and classification models to support operational insights.</li>
   </ul>
 
