@@ -8,7 +8,7 @@ This capstone project was developed by Eduardo Rosas and Swikriti Joshi, graduat
 **Project Website:** SFPD 2020-2024 Crime Project
 **Contact:** erosas9172@sdsu.edu (Eddie) · sjoshi2639@sdsu.edu (Swikriti)
 
-This capstone project investigates how crime patterns evolve across San Francisco by integrating five years of incident-level data (2020-2024) with machine learning, time-series forecasting, and geospatial modeling. The goal is to understand when and where crime risk increases, and how temporal cycles, district-level patterns, and routine-activity trends can support fair, data-informed public safety planning.
+The project investigates how crime patterns evolve across San Francisco by integrating five years of incident-level data (2020-2024) with machine learning, time-series forecasting, and geospatial modeling. The goal is to understand when and where crime risk increases, and how temporal cycles, district-level patterns, and routine-activity trends can support fair, data-informed public safety planning.
 
 The analysis combines Python-based machine learning (Decision Trees, SARIMAX, Prophet), ArcGIS spatial processing, and dashboard visualization. Daily crime counts were used to train a Decision Tree classifier that predicts high-incident days, achieving a Macro-F1 score of approximately 0.61 and ROC-AUC ≈ 0.65. For short-term forecasting, citywide daily totals were modeled using Prophet and SARIMAX, with Prophet obtaining a MAPE of 8.6% and producing stable 30-day forecasts capturing strong weekly and yearly seasonal cycles.
 
