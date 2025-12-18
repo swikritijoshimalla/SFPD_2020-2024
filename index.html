@@ -172,6 +172,32 @@
         color: #555;
       }
     }
+
+    .team-images {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 10px 0;
+}
+
+.team-member {
+  text-align: center;
+}
+
+.profile-img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+}
+
+.team-name {
+  font-size: 0.8rem;
+  margin-top: 4px;
+  font-weight: bold;
+}
+
   </style>
 </head>
 <body>
@@ -582,6 +608,21 @@
 
     <p class="note">
       <strong>Team:</strong> SF Terabytes - Eddie Rosas &amp; Swikriti Joshi<br>
+
+      <!-- ⭐ TEAM IMAGE BLOCK ⭐ -->
+      <div class="team-images">
+        <div class="team-member">
+          <img src="eddie.png" alt="Eddie Rosas" class="profile-img">
+          <p class="team-name">Eddie Rosas</p>
+        </div>
+
+        <div class="team-member">
+          <img src="swikriti.png" alt="Swikriti Joshi" class="profile-img">
+          <p class="team-name">Swikriti Joshi</p>
+        </div>
+      </div>
+      <!-- ⭐ END TEAM IMAGE BLOCK ⭐ -->
+
       <strong>Affiliation:</strong> San Diego State University, Big Data Analytics (BDA 600 Capstone Seminar)<br>
       <strong>Instructors:</strong> Dr. Gabriela Fernandez &amp; Dr. Ming-Hsiang Tsou<br>
 
@@ -595,7 +636,6 @@
         SFPD 2020–2024 Crime Project Video
       </a><br>
 
-      <!-- ⭐️ NEW PDF LINK LINE ⭐️ -->
       <strong>Project PDF:</strong>
       <a href="BDA600 - Final Project Report.pdf" target="_blank" rel="noopener">
         Final Report (PDF)
@@ -638,7 +678,7 @@
   </div>
 </section>
 
-  </main>
+
 
   <script>
     function openTab(tabId) {
